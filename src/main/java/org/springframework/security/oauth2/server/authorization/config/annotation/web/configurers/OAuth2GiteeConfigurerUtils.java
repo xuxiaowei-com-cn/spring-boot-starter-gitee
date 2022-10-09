@@ -1,0 +1,42 @@
+package org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers;
+
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.oauth2.core.OAuth2Token;
+import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
+import org.springframework.security.oauth2.server.authorization.client.GiteeService;
+import org.springframework.security.oauth2.server.authorization.client.InMemoryGiteeService;
+import org.springframework.security.oauth2.server.authorization.properties.GiteeProperties;
+import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
+
+/**
+ * 微信公众号 OAuth 2.0 配置器的实用方法。
+ *
+ * @author xuxiaowei
+ * @since 0.0.1
+ * @see OAuth2ConfigurerUtils
+ */
+@SuppressWarnings("AlibabaClassNamingShouldBeCamel")
+public class OAuth2GiteeConfigurerUtils {
+
+	public static OAuth2AuthorizationService getAuthorizationService(HttpSecurity httpSecurity) {
+		return OAuth2ConfigurerUtils.getAuthorizationService(httpSecurity);
+	}
+
+	public static OAuth2TokenGenerator<? extends OAuth2Token> getTokenGenerator(HttpSecurity httpSecurity) {
+		return OAuth2ConfigurerUtils.getTokenGenerator(httpSecurity);
+	}
+
+	public static GiteeService getGiteeService(HttpSecurity httpSecurity) {
+		GiteeService wechatOffiaccountService = httpSecurity.getSharedObject(GiteeService.class);
+		if (wechatOffiaccountService == null) {
+			wechatOffiaccountService = OAuth2ConfigurerUtils.getOptionalBean(httpSecurity, GiteeService.class);
+			if (wechatOffiaccountService == null) {
+				GiteeProperties giteeProperties = OAuth2ConfigurerUtils.getOptionalBean(httpSecurity,
+						GiteeProperties.class);
+				wechatOffiaccountService = new InMemoryGiteeService(giteeProperties);
+			}
+		}
+		return wechatOffiaccountService;
+	}
+
+}
