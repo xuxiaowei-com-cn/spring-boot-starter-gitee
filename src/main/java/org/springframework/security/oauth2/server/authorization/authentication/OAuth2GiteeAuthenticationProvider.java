@@ -130,7 +130,7 @@ public class OAuth2GiteeAuthenticationProvider implements AuthenticationProvider
 		Integer expiresIn = giteeTokenResponse.getExpiresIn();
 		String scope = giteeTokenResponse.getScope();
 
-		GiteeUserInfoResponse giteeUserInfoResponse = giteeService.getUserInfo(USERINFO_URL, accessToken);
+		GiteeUserInfoResponse giteeUserInfoResponse = giteeService.getUserInfo(USERINFO_URL, appid, giteeTokenResponse);
 
 		Integer id = giteeUserInfoResponse.getId();
 		String login = giteeUserInfoResponse.getLogin();

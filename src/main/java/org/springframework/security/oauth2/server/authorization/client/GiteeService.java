@@ -2,6 +2,7 @@ package org.springframework.security.oauth2.server.authorization.client;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.core.Authentication;
@@ -70,11 +71,12 @@ public interface GiteeService {
 	/**
 	 * 获取授权用户的资料
 	 * @param userinfoUrl 用户信息接口
-	 * @param accessToken 授权Token
+	 * @param appid AppID(码云Gitee client_id)
+	 * @param giteeTokenResponse 码云 Token
 	 * @see <a href="https://gitee.com/api/v5/swagger#/getV5User">获取授权用户的资料</a>
 	 * @return 返回授权用户的资料
 	 */
-	GiteeUserInfoResponse getUserInfo(String userinfoUrl, String accessToken);
+	GiteeUserInfoResponse getUserInfo(String userinfoUrl, String appid, @NonNull GiteeTokenResponse giteeTokenResponse);
 
 	/**
 	 * 授权成功重定向方法
