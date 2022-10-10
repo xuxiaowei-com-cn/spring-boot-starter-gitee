@@ -1,9 +1,8 @@
 package org.springframework.security.oauth2.server.authorization.client;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -48,6 +47,7 @@ import java.util.Map;
  * @author xuxiaowei
  * @since 0.0.1
  */
+@Slf4j
 public class InMemoryGiteeService implements GiteeService {
 
 	private final GiteeProperties giteeProperties;
@@ -79,7 +79,7 @@ public class InMemoryGiteeService implements GiteeService {
 	 */
 	@Override
 	public AbstractAuthenticationToken authenticationToken(Authentication clientPrincipal,
-			Map<String, Object> additionalParameters, Object details, String appid, String code, Long id,
+			Map<String, Object> additionalParameters, Object details, String appid, String code, Integer id,
 			Object credentials, String login, String accessToken, String refreshToken, Integer expiresIn,
 			String scope) {
 		List<GrantedAuthority> authorities = new ArrayList<>();
@@ -129,17 +129,22 @@ public class InMemoryGiteeService implements GiteeService {
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<?> httpEntity = new HttpEntity<>(httpHeaders);
-		String forObject = restTemplate.postForObject(accessTokenUrl, httpEntity, String.class, uriVariables);
 
 		GiteeTokenResponse giteeTokenResponse;
-		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			giteeTokenResponse = objectMapper.readValue(forObject, GiteeTokenResponse.class);
+			giteeTokenResponse = restTemplate.postForObject(accessTokenUrl, httpEntity, GiteeTokenResponse.class,
+					uriVariables);
 		}
-		catch (JsonProcessingException e) {
+		catch (Exception e) {
 			OAuth2Error error = new OAuth2Error(OAuth2GiteeEndpointUtils.ERROR_CODE,
 					"使用码云Gitee授权code：" + code + " 获取Token异常", OAuth2GiteeEndpointUtils.AUTH_CODE2SESSION_URI);
 			throw new OAuth2AuthenticationException(error, e);
+		}
+
+		if (giteeTokenResponse == null) {
+			OAuth2Error error = new OAuth2Error(OAuth2GiteeEndpointUtils.ERROR_CODE,
+					"使用码云Gitee授权code：" + code + " 获取Token异常", OAuth2GiteeEndpointUtils.AUTH_CODE2SESSION_URI);
+			throw new OAuth2AuthenticationException(error);
 		}
 
 		String accessToken = giteeTokenResponse.getAccessToken();
@@ -152,27 +157,54 @@ public class InMemoryGiteeService implements GiteeService {
 		return giteeTokenResponse;
 	}
 
+	/**
+	 * 获取授权用户的资料
+	 * @param userinfoUrl 用户信息接口
+	 * @param accessToken 授权Token
+	 * @see <a href="https://gitee.com/api/v5/swagger#/getV5User">获取授权用户的资料</a>
+	 * @return 返回授权用户的资料
+	 */
 	@Override
 	public GiteeUserInfoResponse getUserInfo(String userinfoUrl, String accessToken) {
 		RestTemplate restTemplate = new RestTemplate();
-		String forObject = restTemplate.getForObject(userinfoUrl + "?access_token=" + accessToken, String.class);
 
 		GiteeUserInfoResponse giteeUserInfoResponse;
-		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			giteeUserInfoResponse = objectMapper.readValue(forObject, GiteeUserInfoResponse.class);
+			giteeUserInfoResponse = restTemplate.getForObject(userinfoUrl + "?access_token=" + accessToken,
+					GiteeUserInfoResponse.class);
 		}
-		catch (JsonProcessingException e) {
+		catch (Exception e) {
 			OAuth2Error error = new OAuth2Error(OAuth2GiteeEndpointUtils.ERROR_CODE,
 					"使用Token：" + accessToken + " 获取用户信息异常", OAuth2GiteeEndpointUtils.AUTH_CODE2SESSION_URI);
 			throw new OAuth2AuthenticationException(error, e);
 		}
 
-		Long id = giteeUserInfoResponse.getId();
+		if (giteeUserInfoResponse == null) {
+			OAuth2Error error = new OAuth2Error(OAuth2GiteeEndpointUtils.ERROR_CODE,
+					"使用Token：" + accessToken + " 获取用户信息异常", OAuth2GiteeEndpointUtils.AUTH_CODE2SESSION_URI);
+			throw new OAuth2AuthenticationException(error);
+		}
+
+		Integer id = giteeUserInfoResponse.getId();
 		if (id == null) {
-			OAuth2Error error = new OAuth2Error(giteeUserInfoResponse.getMessage(), giteeUserInfoResponse.getMessage(),
+			OAuth2Error error = new OAuth2Error(OAuth2GiteeEndpointUtils.ERROR_CODE, giteeUserInfoResponse.getMessage(),
 					OAuth2GiteeEndpointUtils.AUTH_CODE2SESSION_URI);
 			throw new OAuth2AuthenticationException(error);
+		}
+
+		try {
+			GiteeUserInfoResponse response = restTemplate.getForObject(giteeUserInfoResponse.getUrl(),
+					GiteeUserInfoResponse.class);
+			if (response != null) {
+				giteeUserInfoResponse.setCompany(response.getCompany());
+				giteeUserInfoResponse.setProfession(response.getProfession());
+				giteeUserInfoResponse.setWechat(response.getWechat());
+				giteeUserInfoResponse.setQq(response.getQq());
+				giteeUserInfoResponse.setLinkedin(response.getLinkedin());
+			}
+		}
+		catch (Exception e) {
+			log.error("获取码云Gitee用户公开信息异常", e);
 		}
 
 		return giteeUserInfoResponse;

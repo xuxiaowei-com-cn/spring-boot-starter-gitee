@@ -60,6 +60,9 @@ public class OAuth2GiteeAuthenticationProvider implements AuthenticationProvider
 	 */
 	public static final String ACCESS_TOKEN_URL = "https://gitee.com/oauth/token?grant_type=authorization_code&code={code}&client_id={client_id}&redirect_uri={redirect_uri}&client_secret={client_secret}";
 
+	/**
+	 * @see <a href="https://gitee.com/api/v5/swagger#/getV5User">获取授权用户的资料</a>
+	 */
 	public static final String USERINFO_URL = "https://gitee.com/api/v5/user";
 
 	private final HttpSecurity builder;
@@ -129,7 +132,7 @@ public class OAuth2GiteeAuthenticationProvider implements AuthenticationProvider
 
 		GiteeUserInfoResponse giteeUserInfoResponse = giteeService.getUserInfo(USERINFO_URL, accessToken);
 
-		Long id = giteeUserInfoResponse.getId();
+		Integer id = giteeUserInfoResponse.getId();
 		String login = giteeUserInfoResponse.getLogin();
 
 		OAuth2Authorization.Builder builder = OAuth2Authorization.withRegisteredClient(registeredClient);

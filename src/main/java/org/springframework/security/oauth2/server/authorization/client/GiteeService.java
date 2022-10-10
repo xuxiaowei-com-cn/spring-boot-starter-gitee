@@ -48,7 +48,7 @@ public interface GiteeService {
 	 * 拦截处理此异常
 	 */
 	AbstractAuthenticationToken authenticationToken(Authentication clientPrincipal,
-			Map<String, Object> additionalParameters, Object details, String appid, String code, Long id,
+			Map<String, Object> additionalParameters, Object details, String appid, String code, Integer id,
 			Object credentials, String login, String accessToken, String refreshToken, Integer expiresIn, String scope)
 			throws OAuth2AuthenticationException;
 
@@ -67,6 +67,13 @@ public interface GiteeService {
 	GiteeTokenResponse getAccessTokenResponse(String appid, String code, String accessTokenUrl)
 			throws OAuth2AuthenticationException;
 
+	/**
+	 * 获取授权用户的资料
+	 * @param userinfoUrl 用户信息接口
+	 * @param accessToken 授权Token
+	 * @see <a href="https://gitee.com/api/v5/swagger#/getV5User">获取授权用户的资料</a>
+	 * @return 返回授权用户的资料
+	 */
 	GiteeUserInfoResponse getUserInfo(String userinfoUrl, String accessToken);
 
 	/**
