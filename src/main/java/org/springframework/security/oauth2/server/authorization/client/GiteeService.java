@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
- * 微信公众号 账户服务接口
+ * 码云Gitee 账户服务接口
  *
  * @author xuxiaowei
  * @since 0.0.1
@@ -31,28 +31,16 @@ public interface GiteeService {
 	 * @param clientPrincipal 经过身份验证的客户端主体
 	 * @param additionalParameters 附加参数
 	 * @param details 登录信息
-	 * @param appid AppID(公众号ID)
-	 * @param code 授权码，<a href=
-	 * "https://developers.weixin.qq.com/doc/gitee/OA_Web_Apps/Wechat_webpage_authorization.html#0">第一步：用户同意授权，获取code</a>
-	 * @param id 用户唯一标识，<a href=
-	 * "https://developers.weixin.qq.com/doc/gitee/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
-	 * /网页授权</a>
+	 * @param appid AppID(码云Gitee client_id)
+	 * @param code 授权码，<a href="https://gitee.com/api/v5/oauth_doc">OAuth文档</a>
+	 * @param id 用户唯一标识，<a href="https://gitee.com/api/v5/oauth_doc">OAuth文档</a>
 	 * @param credentials 证书
-	 * @param login 多账户用户唯一标识，<a href=
-	 * "https://developers.weixin.qq.com/doc/gitee/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
-	 * /网页授权</a>
-	 * @param accessToken 授权凭证，<a href=
-	 * "https://developers.weixin.qq.com/doc/gitee/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
-	 * /网页授权</a>
-	 * @param refreshToken 刷新凭证，<a href=
-	 * "https://developers.weixin.qq.com/doc/gitee/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
-	 * /网页授权</a>
-	 * @param expiresIn 过期时间，<a href=
-	 * "https://developers.weixin.qq.com/doc/gitee/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
-	 * /网页授权</a>
+	 * @param login 多账户用户唯一标识，<a href="https://gitee.com/api/v5/oauth_doc">OAuth文档</a>
+	 * @param accessToken 授权凭证，<a href="https://gitee.com/api/v5/oauth_doc">OAuth文档</a>
+	 * @param refreshToken 刷新凭证，<a href="https://gitee.com/api/v5/oauth_doc">OAuth文档</a>
+	 * @param expiresIn 过期时间，<a href="https://gitee.com/api/v5/oauth_doc">OAuth文档</a>
 	 * @param scope {@link OAuth2ParameterNames#SCOPE}，授权范围，<a href=
-	 * "https://developers.weixin.qq.com/doc/gitee/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
-	 * /网页授权</a>
+	 * "https://gitee.com/api/v5/oauth_doc">OAuth文档</a>
 	 * @return 返回 认证信息
 	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常，可使用
 	 * {@link OAuth2AuthorizationServerConfigurer#tokenEndpoint(Customizer)} 中的
@@ -65,16 +53,12 @@ public interface GiteeService {
 			throws OAuth2AuthenticationException;
 
 	/**
-	 * 根据 AppID(公众号ID)、code、jsCode2SessionUrl 获取Token
-	 * @param appid AppID(公众号ID)，<a href=
-	 * "https://developers.weixin.qq.com/doc/gitee/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
-	 * /网页授权</a>
-	 * @param code 授权码，<a href=
-	 * "https://developers.weixin.qq.com/doc/gitee/OA_Web_Apps/Wechat_webpage_authorization.html#0">第一步：用户同意授权，获取code</a>
-	 * @param accessTokenUrl <a href=
-	 * "https://developers.weixin.qq.com/doc/gitee/OA_Web_Apps/Wechat_webpage_authorization.html">通过
-	 * code 换取网页授权 access_token 的 URL</a>
-	 * @return 返回 微信授权结果
+	 * 根据 AppID(码云Gitee client_id)、code、jsCode2SessionUrl 获取Token
+	 * @param appid AppID(码云Gitee
+	 * client_id)，<a href="https://gitee.com/api/v5/oauth_doc">OAuth文档</a>
+	 * @param code 授权码，<a href="https://gitee.com/api/v5/oauth_doc">OAuth文档</a>
+	 * @param accessTokenUrl <a href="https://gitee.com/api/v5/oauth_doc">OAuth文档</a>
+	 * @return 返回 码云Gitee授权结果
 	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常，可使用
 	 * {@link OAuth2AuthorizationServerConfigurer#tokenEndpoint(Customizer)} 中的
 	 * {@link OAuth2TokenEndpointConfigurer#errorResponseHandler(AuthenticationFailureHandler)}
@@ -91,7 +75,7 @@ public interface GiteeService {
 	 * @param response 响应
 	 * @param uriVariables 参数
 	 * @param oauth2AccessTokenResponse OAuth2.1 授权 Token
-	 * @param gitee 微信公众号配置
+	 * @param gitee 码云Gitee配置
 	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常，可使用
 	 * {@link OAuth2AuthorizationServerConfigurer#tokenEndpoint(Customizer)} 中的
 	 * {@link OAuth2TokenEndpointConfigurer#errorResponseHandler(AuthenticationFailureHandler)}
@@ -102,9 +86,9 @@ public interface GiteeService {
 			throws OAuth2AuthenticationException;
 
 	/**
-	 * 根据 appid 获取 微信公众号属性配置
-	 * @param appid 公众号ID
-	 * @return 返回 微信公众号属性配置
+	 * 根据 appid 获取 码云Gitee属性配置
+	 * @param appid 码云Gitee client_id
+	 * @return 返回 码云Gitee属性配置
 	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常，可使用
 	 * {@link OAuth2AuthorizationServerConfigurer#tokenEndpoint(Customizer)} 中的
 	 * {@link OAuth2TokenEndpointConfigurer#errorResponseHandler(AuthenticationFailureHandler)}
@@ -131,7 +115,7 @@ public interface GiteeService {
 
 	/**
 	 * 根据 appid 获取重定向的地址
-	 * @param appid 公众号ID
+	 * @param appid 码云Gitee client_id
 	 * @return 返回重定向的地址
 	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常，可使用
 	 * {@link OAuth2AuthorizationServerConfigurer#tokenEndpoint(Customizer)} 中的

@@ -9,7 +9,7 @@ import org.springframework.security.oauth2.server.authorization.client.InMemoryG
 import org.springframework.security.oauth2.server.authorization.properties.GiteeProperties;
 
 /**
- * 微信公众号 配置
+ * 码云Gitee 配置
  *
  * @author xuxiaowei
  * @see OAuth2AuthorizationServerConfiguration

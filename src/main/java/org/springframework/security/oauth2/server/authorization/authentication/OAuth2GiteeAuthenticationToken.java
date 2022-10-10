@@ -10,7 +10,7 @@ import org.springframework.util.Assert;
 import java.util.Map;
 
 /**
- * 微信公众号 OAuth2 身份验证令牌
+ * 码云Gitee OAuth2 身份验证令牌
  *
  * @author xuxiaowei
  * @since 0.0.1
@@ -27,19 +27,18 @@ public class OAuth2GiteeAuthenticationToken extends OAuth2AuthorizationGrantAuth
 	private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
 
 	/**
-	 * 授权类型：微信公众号
+	 * 授权类型：码云Gitee
 	 */
 	public static final AuthorizationGrantType GITEE = new AuthorizationGrantType("gitee");
 
 	/**
-	 * AppID(公众号ID)
+	 * AppID(码云Gitee client_id)
 	 */
 	@Getter
 	private final String appid;
 
 	/**
-	 * @see <a href=
-	 * "https://developers.weixin.qq.com/doc/gitee/OA_Web_Apps/Wechat_webpage_authorization.html#0">第一步：用户同意授权，获取code</a>
+	 * @see <a href="https://gitee.com/api/v5/oauth_doc">OAuth文档</a>
 	 */
 	@Getter
 	private final String code;
@@ -60,12 +59,10 @@ public class OAuth2GiteeAuthenticationToken extends OAuth2AuthorizationGrantAuth
 	 * 子类构造函数。
 	 * @param clientPrincipal 经过身份验证的客户端主体
 	 * @param additionalParameters 附加参数
-	 * @param appid AppID(公众号ID)
-	 * @param code 授权码，<a href=
-	 * "https://developers.weixin.qq.com/doc/gitee/OA_Web_Apps/Wechat_webpage_authorization.html#0">第一步：用户同意授权，获取code</a>
+	 * @param appid AppID(码云Gitee client_id)
+	 * @param code 授权码，<a href="https://gitee.com/api/v5/oauth_doc">OAuth文档</a>
 	 * @param scope {@link OAuth2ParameterNames#SCOPE}，授权范围，<a href=
-	 * "https://developers.weixin.qq.com/doc/gitee/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
-	 * /网页授权</a>
+	 * "https://gitee.com/api/v5/oauth_doc">OAuth文档</a>
 	 */
 	public OAuth2GiteeAuthenticationToken(Authentication clientPrincipal, Map<String, Object> additionalParameters,
 			String appid, String code, String scope, String remoteAddress, String sessionId) {

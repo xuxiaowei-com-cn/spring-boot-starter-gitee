@@ -23,10 +23,9 @@ import java.util.Map;
 import static org.springframework.security.oauth2.server.authorization.authentication.OAuth2GiteeAuthenticationToken.GITEE;
 
 /**
- * 微信公众号授权码接收服务
+ * 码云Gitee授权码接收服务
  *
- * @see <a href=
- * "https://developers.weixin.qq.com/doc/gitee/OA_Web_Apps/Wechat_webpage_authorization.html">网页授权</a>
+ * @see <a href="https://gitee.com/api/v5/oauth_doc">OAuth文档</a>
  * @author xuxiaowei
  * @since 0.0.1
  * @see OAuth2AccessTokenResponse
@@ -44,7 +43,7 @@ public class GiteeCodeHttpFilter extends HttpFilter {
 	public static final String TOKEN_URL = "/oauth2/token?grant_type={grant_type}&appid={appid}&code={code}&state={state}&client_id={client_id}&client_secret={client_secret}&remote_address={remote_address}&session_id={session_id}";
 
 	/**
-	 * 微信公众号使用code获取授权凭证URL前缀
+	 * 码云Gitee使用code获取授权凭证URL前缀
 	 */
 	private String prefixUrl = PREFIX_URL;
 

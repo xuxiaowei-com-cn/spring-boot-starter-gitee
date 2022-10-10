@@ -3,7 +3,7 @@ package org.springframework.security.oauth2.server.authorization.exception;
 import org.springframework.security.oauth2.core.OAuth2Error;
 
 /**
- * 微信公众号 AppID(公众号ID) 异常
+ * 码云Gitee AppID(码云Gitee client_id) 异常
  *
  * @author xuxiaowei
  * @since 0.0.1

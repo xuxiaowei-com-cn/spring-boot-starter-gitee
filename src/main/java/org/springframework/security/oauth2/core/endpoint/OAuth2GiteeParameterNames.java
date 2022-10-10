@@ -1,7 +1,7 @@
 package org.springframework.security.oauth2.core.endpoint;
 
 /**
- * 微信公众号 参数名称
+ * 码云Gitee 参数名称
  *
  * @author xuxiaowei
  * @since 0.0.1
@@ -11,47 +11,18 @@ package org.springframework.security.oauth2.core.endpoint;
 public interface OAuth2GiteeParameterNames {
 
 	/**
-	 * AppID(公众号ID)
+	 * AppID(码云Gitee client_id)
 	 *
-	 * @see <a href=
-	 * "https://developers.weixin.qq.com/doc/gitee/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
-	 * /网页授权</a>
+	 * @see <a href="https://gitee.com/api/v5/oauth_doc">OAuth文档</a>
 	 */
 	String APPID = "appid";
 
 	/**
-	 * AppSecret(公众号密钥)
-	 *
-	 * @see <a href=
-	 * "https://developers.weixin.qq.com/doc/gitee/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
-	 * /网页授权</a>
-	 */
-	String SECRET = "secret";
-
-	/**
 	 * @see OAuth2ParameterNames#CODE
 	 *
-	 * @see <a href=
-	 * "https://developers.weixin.qq.com/doc/gitee/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
-	 * /网页授权</a>
+	 * @see <a href="https://gitee.com/api/v5/oauth_doc">OAuth文档</a>
 	 */
 	String CODE = "code";
-
-	/**
-	 * 用户唯一标识
-	 *
-	 * @see <a href=
-	 * "https://developers.weixin.qq.com/doc/gitee/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
-	 * /网页授权</a>
-	 */
-	String OPENID = "openid";
-
-	/**
-	 * @see <a href=
-	 * "https://developers.weixin.qq.com/doc/gitee/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
-	 * /网页授权</a>
-	 */
-	String UNIONID = "unionid";
 
 	/**
 	 * 远程地址

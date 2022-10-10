@@ -4,7 +4,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.OAuth2Error;
 
 /**
- * 微信公众号父异常
+ * 码云Gitee父异常
  *
  * @author xuxiaowei
  * @since 0.0.1

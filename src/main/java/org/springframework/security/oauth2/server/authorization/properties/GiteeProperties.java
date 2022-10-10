@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * 微信公众号属性配置类
+ * 码云Gitee属性配置类
  *
  * @author xuxiaowei
  * @since 0.0.1
@@ -18,17 +18,17 @@ import java.util.List;
 public class GiteeProperties {
 
 	/**
-	 * 微信公众号属性配置列表
+	 * 码云Gitee属性配置列表
 	 */
 	private List<Gitee> list;
 
 	/**
-	 * 默认微信公众号的权限
+	 * 默认码云Gitee的权限
 	 */
 	private String defaultRole;
 
 	/**
-	 * 微信公众号属性配置类
+	 * 码云Gitee属性配置类
 	 *
 	 * @author xuxiaowei
 	 * @since 0.0.1
@@ -37,12 +37,12 @@ public class GiteeProperties {
 	public static class Gitee {
 
 		/**
-		 * AppID(公众号ID)
+		 * AppID(码云Gitee client_id)
 		 */
 		private String appid;
 
 		/**
-		 * AppSecret(公众号密钥)
+		 * AppSecret(码云Gitee client_secret)
 		 */
 		private String secret;
 

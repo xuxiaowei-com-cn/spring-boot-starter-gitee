@@ -1,7 +1,7 @@
 package org.springframework.security.oauth2.server.authorization.web.authentication;
 
 /**
- * 微信公众号 OAuth 2.0 协议端点的实用方法
+ * 码云Gitee OAuth 2.0 协议端点的实用方法
  *
  * @author xuxiaowei
  * @since 0.0.1
@@ -10,9 +10,9 @@ package org.springframework.security.oauth2.server.authorization.web.authenticat
 public class OAuth2GiteeEndpointUtils {
 
 	/**
-	 * 微信网页开发 /网页授权
+	 * 码云Gitee网页开发 /网页授权
 	 */
-	public static final String AUTH_CODE2SESSION_URI = "https://developers.weixin.qq.com/doc/gitee/OA_Web_Apps/Wechat_webpage_authorization.html";
+	public static final String AUTH_CODE2SESSION_URI = "https://gitee.com/api/v5/oauth_doc";
 
 	/**
 	 * 错误代码

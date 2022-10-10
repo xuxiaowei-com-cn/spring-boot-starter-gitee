@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 微信 OAuth2 用于验证授权授予的 {@link OAuth2GiteeAuthenticationToken}。
+ * 码云Gitee OAuth2 用于验证授权授予的 {@link OAuth2GiteeAuthenticationToken}。
  *
  * @author xuxiaowei
  * @since Joe Grandja

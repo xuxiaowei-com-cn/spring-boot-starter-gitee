@@ -9,7 +9,7 @@ import org.springframework.security.oauth2.server.authorization.properties.Gitee
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
 
 /**
- * 微信公众号 OAuth 2.0 配置器的实用方法。
+ * 码云Gitee OAuth 2.0 配置器的实用方法。
  *
  * @author xuxiaowei
  * @since 0.0.1

@@ -10,8 +10,7 @@ import java.io.Serializable;
  *
  * @author xuxiaowei
  * @since 0.0.1
- * @see <a href=
- * "https://developers.weixin.qq.com/doc/gitee/OA_Web_Apps/Wechat_webpage_authorization.html">网页授权</a>
+ * @see <a href="https://gitee.com/api/v5/oauth_doc">OAuth文档</a>
  */
 @Data
 public class GiteeTokenResponse implements Serializable {

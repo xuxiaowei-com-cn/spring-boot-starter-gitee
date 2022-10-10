@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 微信用户公众号 登录认证令牌
+ * 码云Gitee 登录认证令牌
  *
  * @author xuxiaowei
  * @since 0.0.1
@@ -57,7 +57,7 @@ public class GiteeAuthenticationToken extends AbstractAuthenticationToken {
 	private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
 
 	/**
-	 * 授权类型：微信公众号
+	 * 授权类型：码云Gitee
 	 */
 	@Getter
 	private final AuthorizationGrantType authorizationGrantType;
@@ -72,7 +72,7 @@ public class GiteeAuthenticationToken extends AbstractAuthenticationToken {
 	private final Authentication clientPrincipal;
 
 	/**
-	 * 经过身份验证的微信公众号主体
+	 * 经过身份验证的码云Gitee主体
 	 */
 	private final Authentication principal;
 
@@ -95,7 +95,7 @@ public class GiteeAuthenticationToken extends AbstractAuthenticationToken {
 	private final Object details;
 
 	/**
-	 * AppID(公众号ID)
+	 * AppID(码云Gitee client_id)
 	 */
 	@Getter
 	private final String appid;

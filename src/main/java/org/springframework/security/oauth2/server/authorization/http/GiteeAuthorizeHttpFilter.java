@@ -15,14 +15,12 @@ import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.UUID;
 
 /**
- * 微信公众号跳转到微信授权页面
+ * 码云Gitee跳转到码云Gitee授权页面
  *
- * @see <a href=
- * "https://developers.weixin.qq.com/doc/gitee/OA_Web_Apps/Wechat_webpage_authorization.html">网页授权</a>
+ * @see <a href="https://gitee.com/api/v5/oauth_doc">OAuth文档</a>
  * @author xuxiaowei
  * @since 0.0.1
  */
@@ -35,18 +33,14 @@ public class GiteeAuthorizeHttpFilter extends HttpFilter {
 	public static final String PREFIX_URL = "/gitee/authorize";
 
 	/**
-	 * @see <a href=
-	 * "https://developers.weixin.qq.com/doc/gitee/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
-	 * /网页授权</a>
+	 * @see <a href="https://gitee.com/api/v5/oauth_doc">OAuth文档</a>
 	 */
 	public static final String AUTHORIZE_URL = "https://gitee.com/oauth/authorize?client_id=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s";
 
 	/**
 	 * 以snsapi_base为 scope 发起的网页授权，是用来获取进入页面的用户的 openid
 	 * 的，并且是静默授权并自动跳转到回调页的。用户感知的就是直接进入了回调页（往往是业务页面）
-	 * @see <a href=
-	 * "https://developers.weixin.qq.com/doc/gitee/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
-	 * /网页授权</a>
+	 * @see <a href="https://gitee.com/api/v5/oauth_doc">OAuth文档</a>
 	 */
 	public static final String USER_INFO = "user_info";
 
@@ -58,7 +52,7 @@ public class GiteeAuthorizeHttpFilter extends HttpFilter {
 	}
 
 	/**
-	 * 微信公众号授权前缀
+	 * 码云Gitee授权前缀
 	 */
 	private String prefixUrl = PREFIX_URL;
 

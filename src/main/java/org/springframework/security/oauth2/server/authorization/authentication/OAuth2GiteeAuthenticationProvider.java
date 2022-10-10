@@ -31,7 +31,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * 微信公众号 OAuth2 身份验证提供程序
+ * 码云Gitee OAuth2 身份验证提供程序
  *
  * @author xuxiaowei
  * @since 0.0.1
@@ -56,9 +56,7 @@ public class OAuth2GiteeAuthenticationProvider implements AuthenticationProvider
 	private static final String AUTHORIZED_SCOPE_KEY = OAuth2Authorization.class.getName().concat(".AUTHORIZED_SCOPE");
 
 	/**
-	 * @see <a href=
-	 * "https://developers.weixin.qq.com/doc/gitee/OA_Web_Apps/Wechat_webpage_authorization.html">第二步：通过
-	 * code 换取网页授权access_token</a>
+	 * @see <a href="https://gitee.com/api/v5/oauth_doc">OAuth文档</a>
 	 */
 	public static final String ACCESS_TOKEN_URL = "https://gitee.com/oauth/token?grant_type=authorization_code&code={code}&client_id={client_id}&redirect_uri={redirect_uri}&client_secret={client_secret}";
 
@@ -98,7 +96,7 @@ public class OAuth2GiteeAuthenticationProvider implements AuthenticationProvider
 				.getAuthenticatedClientElseThrowInvalidClient(grantAuthenticationToken);
 		RegisteredClient registeredClient = clientPrincipal.getRegisteredClient();
 
-		// 自定义微信公众号用户的IP与SessionId
+		// 自定义码云Gitee用户的IP与SessionId
 		String remoteAddress = grantAuthenticationToken.getRemoteAddress();
 		String sessionId = grantAuthenticationToken.getSessionId();
 		sessionId = "".equals(sessionId) ? null : sessionId;
