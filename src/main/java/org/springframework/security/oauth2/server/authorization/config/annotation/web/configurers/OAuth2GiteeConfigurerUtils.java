@@ -27,16 +27,16 @@ public class OAuth2GiteeConfigurerUtils {
 	}
 
 	public static GiteeService getGiteeService(HttpSecurity httpSecurity) {
-		GiteeService wechatOffiaccountService = httpSecurity.getSharedObject(GiteeService.class);
-		if (wechatOffiaccountService == null) {
-			wechatOffiaccountService = OAuth2ConfigurerUtils.getOptionalBean(httpSecurity, GiteeService.class);
-			if (wechatOffiaccountService == null) {
+		GiteeService giteeService = httpSecurity.getSharedObject(GiteeService.class);
+		if (giteeService == null) {
+			giteeService = OAuth2ConfigurerUtils.getOptionalBean(httpSecurity, GiteeService.class);
+			if (giteeService == null) {
 				GiteeProperties giteeProperties = OAuth2ConfigurerUtils.getOptionalBean(httpSecurity,
 						GiteeProperties.class);
-				wechatOffiaccountService = new InMemoryGiteeService(giteeProperties);
+				giteeService = new InMemoryGiteeService(giteeProperties);
 			}
 		}
-		return wechatOffiaccountService;
+		return giteeService;
 	}
 
 }
