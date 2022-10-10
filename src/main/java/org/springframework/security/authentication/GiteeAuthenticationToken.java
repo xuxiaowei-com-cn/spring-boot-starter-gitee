@@ -110,7 +110,7 @@ public class GiteeAuthenticationToken extends AbstractAuthenticationToken {
 	
 	 */
 	@Getter
-	private final Long id;
+	private final Integer id;
 
 	/**
 	
@@ -121,7 +121,7 @@ public class GiteeAuthenticationToken extends AbstractAuthenticationToken {
 
 	public GiteeAuthenticationToken(Collection<? extends GrantedAuthority> authorities, Authentication clientPrincipal,
 			Authentication principal, UserDetails userDetails, Map<String, Object> additionalParameters, Object details,
-			String appid, String code, Long id) {
+			String appid, String code, Integer id) {
 		super(authorities);
 		Assert.notNull(authorities, "authorities 不能为空");
 		Assert.notNull(clientPrincipal, "clientPrincipal 不能为空");
