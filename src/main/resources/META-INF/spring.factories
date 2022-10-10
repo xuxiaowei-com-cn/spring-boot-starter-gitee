@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2GiteeConfiguration,\
+  org.springframework.security.oauth2.server.authorization.http.GiteeAuthorizeHttpFilter,\
+  org.springframework.security.oauth2.server.authorization.http.GiteeCodeHttpFilter,\
+  org.springframework.security.oauth2.server.authorization.properties.GiteeProperties
