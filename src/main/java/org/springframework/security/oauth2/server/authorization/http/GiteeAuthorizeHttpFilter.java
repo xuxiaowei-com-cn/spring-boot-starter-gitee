@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.core.endpoint.OAuth2GiteeParameterNames;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.security.oauth2.server.authorization.client.GiteeService;
 import org.springframework.stereotype.Component;
@@ -70,9 +71,13 @@ public class GiteeAuthorizeHttpFilter extends HttpFilter {
 
 			String redirectUri = giteeService.getRedirectUriByAppid(appid);
 
+			String binding = request.getParameter(OAuth2GiteeParameterNames.BINDING);
 			String scope = request.getParameter(OAuth2ParameterNames.SCOPE);
 
-			String state = UUID.randomUUID().toString();
+			String state = giteeService.stateGenerate(request, response, appid);
+			giteeService.storeBinding(request, response, appid, state, binding);
+			giteeService.storeUsers(request, response, appid, state, binding);
+
 			String url = String.format(AUTHORIZE_URL, appid, redirectUri, scope, state);
 
 			log.info("redirectUrl：{}", url);

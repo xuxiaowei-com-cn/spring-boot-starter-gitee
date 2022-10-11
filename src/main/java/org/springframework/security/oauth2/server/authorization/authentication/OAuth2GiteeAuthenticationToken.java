@@ -55,6 +55,12 @@ public class OAuth2GiteeAuthenticationToken extends OAuth2AuthorizationGrantAuth
 	@Getter
 	private final String sessionId;
 
+	@Getter
+	private final String state;
+
+	@Getter
+	private final String binding;
+
 	/**
 	 * 子类构造函数。
 	 * @param clientPrincipal 经过身份验证的客户端主体
@@ -65,7 +71,8 @@ public class OAuth2GiteeAuthenticationToken extends OAuth2AuthorizationGrantAuth
 	 * "https://gitee.com/api/v5/oauth_doc">OAuth文档</a>
 	 */
 	public OAuth2GiteeAuthenticationToken(Authentication clientPrincipal, Map<String, Object> additionalParameters,
-			String appid, String code, String scope, String remoteAddress, String sessionId) {
+			String appid, String code, String scope, String remoteAddress, String sessionId, String state,
+			String binding) {
 		super(OAuth2GiteeAuthenticationToken.GITEE, clientPrincipal, additionalParameters);
 		Assert.hasText(code, "appid 不能为空");
 		Assert.hasText(code, "code 不能为空");
@@ -74,6 +81,8 @@ public class OAuth2GiteeAuthenticationToken extends OAuth2AuthorizationGrantAuth
 		this.scope = scope;
 		this.remoteAddress = remoteAddress;
 		this.sessionId = sessionId;
+		this.state = state;
+		this.binding = binding;
 	}
 
 }
