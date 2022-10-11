@@ -64,6 +64,11 @@ public class OAuth2GiteeAuthenticationConverter implements AuthenticationConvert
 		// scope
 		String scope = parameters.getFirst(OAuth2ParameterNames.SCOPE);
 
+		String state = parameters.getFirst(OAuth2ParameterNames.STATE);
+
+		// 是否绑定，需要使用者自己去拓展
+		String binding = request.getParameter(OAuth2GiteeParameterNames.BINDING);
+
 		Map<String, Object> additionalParameters = new HashMap<>(4);
 		parameters.forEach((key, value) -> {
 			if (!key.equals(OAuth2ParameterNames.GRANT_TYPE) && !key.equals(OAuth2ParameterNames.CLIENT_ID)
@@ -79,7 +84,7 @@ public class OAuth2GiteeAuthenticationConverter implements AuthenticationConvert
 		String sessionId = request.getParameter(OAuth2GiteeParameterNames.SESSION_ID);
 
 		return new OAuth2GiteeAuthenticationToken(clientPrincipal, additionalParameters, appid, code, scope,
-				remoteAddress, sessionId);
+				remoteAddress, sessionId, state, binding);
 	}
 
 }

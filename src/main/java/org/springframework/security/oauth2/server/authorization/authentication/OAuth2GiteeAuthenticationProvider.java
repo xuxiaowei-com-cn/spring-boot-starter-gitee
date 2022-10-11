@@ -92,6 +92,9 @@ public class OAuth2GiteeAuthenticationProvider implements AuthenticationProvider
 
 		String appid = grantAuthenticationToken.getAppid();
 		String code = grantAuthenticationToken.getCode();
+		String state = grantAuthenticationToken.getState();
+		String binding = grantAuthenticationToken.getBinding();
+
 		Map<String, Object> additionalParameters = grantAuthenticationToken.getAdditionalParameters();
 		Set<String> requestedScopes = StringUtils.commaDelimitedListToSet(grantAuthenticationToken.getScope());
 
@@ -130,7 +133,8 @@ public class OAuth2GiteeAuthenticationProvider implements AuthenticationProvider
 		Integer expiresIn = giteeTokenResponse.getExpiresIn();
 		String scope = giteeTokenResponse.getScope();
 
-		GiteeUserInfoResponse giteeUserInfoResponse = giteeService.getUserInfo(USERINFO_URL, appid, giteeTokenResponse);
+		GiteeUserInfoResponse giteeUserInfoResponse = giteeService.getUserInfo(USERINFO_URL, appid, state, binding,
+				remoteAddress, sessionId, giteeTokenResponse);
 
 		Integer id = giteeUserInfoResponse.getId();
 		String login = giteeUserInfoResponse.getLogin();

@@ -34,4 +34,9 @@ public interface OAuth2GiteeParameterNames {
 	 */
 	String SESSION_ID = "session_id";
 
+	/**
+	 * 是否绑定，需要使用者自己去拓展
+	 */
+	String BINDING = "binding";
+
 }
