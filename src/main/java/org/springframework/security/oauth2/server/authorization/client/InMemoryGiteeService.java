@@ -272,7 +272,7 @@ public class InMemoryGiteeService implements GiteeService {
 
 		uriVariables.put(OAuth2ParameterNames.CLIENT_SECRET, secret);
 		uriVariables.put(OAuth2ParameterNames.REDIRECT_URI, redirectUri);
-		uriVariables.put(OAuth2GiteeParameterNames.CODE, code);
+		uriVariables.put(OAuth2ParameterNames.CODE, code);
 
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders httpHeaders = new HttpHeaders();

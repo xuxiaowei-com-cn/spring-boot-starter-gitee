@@ -18,13 +18,6 @@ public interface OAuth2GiteeParameterNames {
 	String APPID = "appid";
 
 	/**
-	 * @see OAuth2ParameterNames#CODE
-	 *
-	 * @see <a href="https://gitee.com/api/v5/oauth_doc">OAuth文档</a>
-	 */
-	String CODE = "code";
-
-	/**
 	 * 远程地址
 	 */
 	String REMOTE_ADDRESS = "remote_address";
