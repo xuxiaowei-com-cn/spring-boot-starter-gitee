@@ -94,7 +94,7 @@ public class OAuth2GiteeAuthenticationToken extends OAuth2AuthorizationGrantAuth
 			String appid, String code, String scope, String remoteAddress, String sessionId, String state,
 			String binding) {
 		super(OAuth2GiteeAuthenticationToken.GITEE, clientPrincipal, additionalParameters);
-		Assert.hasText(code, "appid 不能为空");
+		Assert.hasText(appid, "appid 不能为空");
 		Assert.hasText(code, "code 不能为空");
 		this.appid = appid;
 		this.code = code;
