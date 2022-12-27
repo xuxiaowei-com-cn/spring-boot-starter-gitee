@@ -116,17 +116,23 @@ public class GiteeAuthorizeHttpFilter extends HttpFilter {
 
 			String binding = request.getParameter(OAuth2GiteeParameterNames.BINDING);
 			String scope = request.getParameter(OAuth2ParameterNames.SCOPE);
-			List<String> scopeList = Splitter.on(" ").trimResults().splitToList(scope);
-			List<String> legalList = Arrays.asList(USER_INFO, PROJECTS, PULL_REQUESTS, ISSUES, NOTES, KEYS, HOOK,
-					GROUPS, GISTS, ENTERPRISES);
-			Set<String> scopeResultSet = new HashSet<>();
-			scopeResultSet.add(USER_INFO);
-			for (String sc : scopeList) {
-				if (legalList.contains(sc)) {
-					scopeResultSet.add(sc);
-				}
+			String scopeResult;
+			if (scope == null) {
+				scopeResult = USER_INFO;
 			}
-			String scopeResult = Joiner.on(" ").join(scopeResultSet);
+			else {
+				List<String> scopeList = Splitter.on(" ").trimResults().splitToList(scope);
+				List<String> legalList = Arrays.asList(USER_INFO, PROJECTS, PULL_REQUESTS, ISSUES, NOTES, KEYS, HOOK,
+						GROUPS, GISTS, ENTERPRISES);
+				Set<String> scopeResultSet = new HashSet<>();
+				scopeResultSet.add(USER_INFO);
+				for (String sc : scopeList) {
+					if (legalList.contains(sc)) {
+						scopeResultSet.add(sc);
+					}
+				}
+				scopeResult = Joiner.on(" ").join(scopeResultSet);
+			}
 
 			String state = giteeService.stateGenerate(request, response, appid);
 			giteeService.storeBinding(request, response, appid, state, binding);
