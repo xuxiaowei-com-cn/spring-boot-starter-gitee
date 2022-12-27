@@ -38,7 +38,10 @@ import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * 码云Gitee跳转到码云Gitee授权页面
@@ -113,17 +116,23 @@ public class GiteeAuthorizeHttpFilter extends HttpFilter {
 
 			String binding = request.getParameter(OAuth2GiteeParameterNames.BINDING);
 			String scope = request.getParameter(OAuth2ParameterNames.SCOPE);
-			List<String> scopeList = Splitter.on(" ").trimResults().splitToList(scope);
-			List<String> legalList = Arrays.asList(USER_INFO, PROJECTS, PULL_REQUESTS, ISSUES, NOTES, KEYS, HOOK,
-					GROUPS, GISTS, ENTERPRISES);
-			Set<String> scopeResultSet = new HashSet<>();
-			scopeResultSet.add(USER_INFO);
-			for (String sc : scopeList) {
-				if (legalList.contains(sc)) {
-					scopeResultSet.add(sc);
-				}
+			String scopeResult;
+			if (scope == null) {
+				scopeResult = USER_INFO;
 			}
-			String scopeResult = Joiner.on(" ").join(scopeResultSet);
+			else {
+				List<String> scopeList = Splitter.on(" ").trimResults().splitToList(scope);
+				List<String> legalList = Arrays.asList(USER_INFO, PROJECTS, PULL_REQUESTS, ISSUES, NOTES, KEYS, HOOK,
+						GROUPS, GISTS, ENTERPRISES);
+				Set<String> scopeResultSet = new HashSet<>();
+				scopeResultSet.add(USER_INFO);
+				for (String sc : scopeList) {
+					if (legalList.contains(sc)) {
+						scopeResultSet.add(sc);
+					}
+				}
+				scopeResult = Joiner.on(" ").join(scopeResultSet);
+			}
 
 			String state = giteeService.stateGenerate(request, response, appid);
 			giteeService.storeBinding(request, response, appid, state, binding);
