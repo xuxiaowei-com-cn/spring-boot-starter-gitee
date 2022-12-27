@@ -9,9 +9,9 @@ package org.springframework.security.oauth2.server.authorization.http;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,6 +20,8 @@ package org.springframework.security.oauth2.server.authorization.http;
  * #L%
  */
 
+import com.google.common.base.Joiner;
+import com.google.common.base.Splitter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpFilter;
@@ -36,6 +38,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * 码云Gitee跳转到码云Gitee授权页面
@@ -63,6 +69,24 @@ public class GiteeAuthorizeHttpFilter extends HttpFilter {
 	 * @see <a href="https://gitee.com/api/v5/oauth_doc">OAuth文档</a>
 	 */
 	public static final String USER_INFO = "user_info";
+
+	public static final String PROJECTS = "projects";
+
+	public static final String PULL_REQUESTS = "pull_requests";
+
+	public static final String ISSUES = "issues";
+
+	public static final String NOTES = "notes";
+
+	public static final String KEYS = "keys";
+
+	public static final String HOOK = "hook";
+
+	public static final String GROUPS = "groups";
+
+	public static final String GISTS = "gists";
+
+	public static final String ENTERPRISES = "enterprises";
 
 	private GiteeService giteeService;
 
@@ -92,12 +116,23 @@ public class GiteeAuthorizeHttpFilter extends HttpFilter {
 
 			String binding = request.getParameter(OAuth2GiteeParameterNames.BINDING);
 			String scope = request.getParameter(OAuth2ParameterNames.SCOPE);
+			List<String> scopeList = Splitter.on(" ").trimResults().splitToList(scope);
+			List<String> legalList = Arrays.asList(USER_INFO, PROJECTS, PULL_REQUESTS, ISSUES, NOTES, KEYS, HOOK,
+					GROUPS, GISTS, ENTERPRISES);
+			Set<String> scopeResultSet = new HashSet<>();
+			scopeResultSet.add(USER_INFO);
+			for (String sc : scopeList) {
+				if (legalList.contains(sc)) {
+					scopeResultSet.add(sc);
+				}
+			}
+			String scopeResult = Joiner.on(" ").join(scopeResultSet);
 
 			String state = giteeService.stateGenerate(request, response, appid);
 			giteeService.storeBinding(request, response, appid, state, binding);
 			giteeService.storeUsers(request, response, appid, state, binding);
 
-			String url = String.format(AUTHORIZE_URL, appid, redirectUri, scope, state);
+			String url = String.format(AUTHORIZE_URL, appid, redirectUri, scopeResult, state);
 
 			log.info("redirectUrl：{}", url);
 
