@@ -34,6 +34,7 @@ public interface OAuth2GiteeParameterNames {
 	 * AppID(码云Gitee client_id)
 	 *
 	 * @see <a href="https://gitee.com/api/v5/oauth_doc">OAuth文档</a>
+	 * @see <a href="https://gitee.com/oauth/applications">第三方应用 - Gitee.com</a>
 	 */
 	String APPID = "appid";
 

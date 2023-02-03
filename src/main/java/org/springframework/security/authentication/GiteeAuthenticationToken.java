@@ -116,24 +116,26 @@ public class GiteeAuthenticationToken extends AbstractAuthenticationToken {
 
 	/**
 	 * AppID(码云Gitee client_id)
+	 *
+	 * @see <a href="https://gitee.com/oauth/applications">第三方应用 - Gitee.com</a>
 	 */
 	@Getter
 	private final String appid;
 
 	/**
-	
+	 * @see <a href="https://gitee.com/oauth/applications">第三方应用 - Gitee.com</a>
 	 */
 	@Getter
 	private final String code;
 
 	/**
-	
+	 * 码云唯一标识
 	 */
 	@Getter
 	private final Integer id;
 
 	/**
-	
+	 * 码云登录名，可能会修改
 	 */
 	@Getter
 	@Setter
