@@ -128,6 +128,8 @@
 - next
     - 支持 JDK 17
 
+## [使用文档](https://www.yuque.com/xuxiaowei-com-cn/xuxiaowei-cloud/third-party-login)
+
 ## 其他 [Spring Boot Starter 项目](https://gitee.com/xuxiaowei-com-cn/spring-boot-starter)
 
 ## 发布
@@ -177,6 +179,7 @@ git remote add gitlink https://gitlink.org.cn/xuxiaowei-com-cn/spring-boot-start
 ## 参考文档
 
 - [OAuth文档](https://gitee.com/api/v5/oauth_doc)
+- [第三方应用](https://gitee.com/oauth/applications)
 
 ## 鸣谢
 
