@@ -60,7 +60,7 @@ public class GiteeCodeHttpFilter extends HttpFilter {
 
 	public static final String PREFIX_URL = "/gitee/code";
 
-	public static final String TOKEN_URL = "/oauth2/token?grant_type={grant_type}&appid={appid}&code={code}&state={state}&client_id={client_id}&client_secret={client_secret}&remote_address={remote_address}&session_id={session_id}&binding={binding}";
+	public static final String TOKEN_URL = "/oauth2/token?grant_type={grant_type}&appid={appid}&code={code}&state={state}&remote_address={remote_address}&session_id={session_id}&binding={binding}";
 
 	/**
 	 * 码云Gitee使用code获取授权凭证URL前缀
@@ -118,14 +118,12 @@ public class GiteeCodeHttpFilter extends HttpFilter {
 			uriVariables.put(OAuth2ParameterNames.CODE, code);
 			uriVariables.put(OAuth2ParameterNames.STATE, state);
 			uriVariables.put(OAuth2ParameterNames.SCOPE, scope);
-			uriVariables.put(OAuth2ParameterNames.CLIENT_ID, clientId);
-			uriVariables.put(OAuth2ParameterNames.CLIENT_SECRET, clientSecret);
 			uriVariables.put(OAuth2GiteeParameterNames.REMOTE_ADDRESS, remoteHost);
 			uriVariables.put(OAuth2GiteeParameterNames.SESSION_ID, session == null ? "" : session.getId());
 			uriVariables.put(OAuth2GiteeParameterNames.BINDING, binding);
 
 			OAuth2AccessTokenResponse oauth2AccessTokenResponse = giteeService.getOAuth2AccessTokenResponse(request,
-					response, tokenUrlPrefix, TOKEN_URL, uriVariables);
+					response, clientId, clientSecret, tokenUrlPrefix, TOKEN_URL, uriVariables);
 			if (oauth2AccessTokenResponse == null) {
 				return;
 			}

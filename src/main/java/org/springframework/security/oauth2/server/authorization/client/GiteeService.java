@@ -154,6 +154,8 @@ public interface GiteeService {
 	 * 获取 OAuth 2.1 授权 Token（如果不想执行此方法后面的内容，可返回 null）
 	 * @param request 请求
 	 * @param response 响应
+	 * @param clientId 客户ID
+	 * @param clientSecret 客户凭证
 	 * @param tokenUrlPrefix 获取 Token URL 前缀
 	 * @param tokenUrl Token URL
 	 * @param uriVariables 参数
@@ -165,8 +167,8 @@ public interface GiteeService {
 	 */
 	@SuppressWarnings("AlibabaLowerCamelCaseVariableNaming")
 	OAuth2AccessTokenResponse getOAuth2AccessTokenResponse(HttpServletRequest request, HttpServletResponse response,
-			String tokenUrlPrefix, String tokenUrl, Map<String, String> uriVariables)
-			throws OAuth2AuthenticationException;
+			String clientId, String clientSecret, String tokenUrlPrefix, String tokenUrl,
+			Map<String, String> uriVariables) throws OAuth2AuthenticationException;
 
 	/**
 	 * 根据 AppID(码云Gitee client_id)、code、jsCode2SessionUrl 获取Token
